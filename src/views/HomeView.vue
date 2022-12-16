@@ -51,29 +51,30 @@
        <section id="section2">
          <h2>Customer information</h2>
          <p>This is where you provid necessary information</p>
-         <p>
+         <form>
+          <p>
            <label for="fullName">Full name</label> <br>
-           <input type="text" name="name" required="required" id="fullName" placeholder="First- and Last name">
+           <input type="text" v-model="name" required="required" id="fullName" placeholder="First- and Last name">
          </p>
 
          <p>
            <label for="email">E-mail</label> <br>
-           <input type="email" name="em" required="required" id="email" placeholder="E-mail address">
+           <input type="email" v-model="em" required="required" id="email" placeholder="E-mail address">
          </p>
 
          <p>
            <label for="street">street</label> <br>
-           <input type="text" name="sn" required="required" id="street" placeholder="Street name">
+           <input type="text" v-model="sn" required="required" id="street" placeholder="Street name">
          </p>
 
          <p>
            <label for="house">House</label> <br>
-           <input type="number" name="hn" required="required" id="house" placeholder="House number">
+           <input type="number" v-model="hn" required="required" id="house" placeholder="House number">
          </p>
 
          <p>
            <label for="payment">Payment methods</label>
-           <select id="payment" name="pay">
+           <select id="payment" v-model="pay">
              <option>Swish</option>
              <option>Cridet card</option>
              <option>Klarna</option>
@@ -83,19 +84,22 @@
 
          <p>
            Gender <br>
-           <input type="radio" name="gender" value="male" id="male">
+           <input type="radio" v-model="gender" value="male" id="male">
            <label for="male">Male</label> <br>
-           <input type="radio" name="gender" value="female" id="female">
+           <input type="radio" v-model="gender" value="female" id="female">
            <label for="female">Female</label> <br>
-           <input type="radio" name="gender" value="donot" id="donot">
+           <input type="radio" v-model="gender" value="donot" id="donot">
            <label for="donot">Do not wish to provide</label> <br>
          </p>
-
+        </form>
        </section>
-       <button type="submit" name="button">
+       <button type="submit" name="button" v-on:click="printForm">
          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bright_green_checkbox-checked.svg/1024px-Bright_green_checkbox-checked.svg.png" style="width:1em; height:1em">
          Send info
        </button>
+
+       
+         
      </main>
 
      <footer>
@@ -127,6 +131,7 @@ const Bur3 = new MenuItem("A Double cheese burger", "https://www.foodiecrush.com
 
 let BArray = [ Bur1, Bur2, Bur3]
 
+
 export default {
   name: 'HomeView',
   components: {
@@ -152,6 +157,16 @@ export default {
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
+    },
+    printForm: function () {
+      console.log(
+        this.name,
+        this.em,
+        this.sn,
+        this.hn,
+        this.pay,
+        this.gender
+      )
     }
   }
 }
