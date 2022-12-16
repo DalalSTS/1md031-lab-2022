@@ -1,6 +1,15 @@
 <template>
     <div>
-      {{ burger.name }} {{ burger.kCal }}
+      <div class="box a">
+            <h3>{{burger.name}}</h3>
+            <!-- v-bind:src= -->
+            <img v-bind:src="burger.url" style="width:15em; height:20em">
+            <ul>
+              <li>{{burger.kCal}}</li>
+              <li>Contains <span class="certain">{{burger.lactose}}</span></li>
+              <li>Contains <span class="certain">{{burger.gluten}}</span></li>
+            </ul>
+          </div>
     </div>
   </template>
   
