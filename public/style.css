@@ -1,1 +1,64 @@
 /*empty*/
+@import 'https://fonts.googleapis.com/css?family=Pacifico|Dosis';
+
+body {
+    font-family: arial;
+ }
+
+ .certain {
+    font-weight: bold;
+ }
+
+ #section1 {
+    background-color: black;
+    color: white;
+    border: 2px dashed white;	
+ }
+
+ #section2{
+    border: 2px dashed black;
+ }
+
+ section{
+    padding: 10px;
+    margin: 2px;
+ }
+
+ button:hover {
+    cursor: pointer;
+    background-color: wheat;
+ }
+ 
+
+ button{
+    margin: 2px;
+ }
+
+ div{
+    padding: 2px;
+    margin: 2px;
+ }
+
+ #imgHeader{
+   width: 100%;
+   height: 100%;
+   opacity: 0.5;
+ }
+
+ #Headline{
+   position: absolute;
+   padding: 40px;
+ }
+
+ #Header{
+   height: 200px;
+   overflow:hidden;
+   
+ }
+
+ .wrapper {
+   display: grid;
+   grid-gap: 10px;
+   grid-template-columns: 33% 33% 33%;
+ }
+

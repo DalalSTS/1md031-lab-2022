@@ -18,6 +18,21 @@ import io from 'socket.io-client'
 
 const socket = io();
 
+function MenuItem(Bname, url, kCal, glut, lact) {
+    this.name = Bname; 
+    this.url = url;
+    this.kCal = kCal;
+    this.gluten = glut;
+    this.lactose = lact;
+    return this;
+}
+
+
+let BArray = [new MenuItem("Burger1", "pic", "300", false, true)
+, new MenuItem("Burger2", "pic", "400", false, true)
+, new MenuItem("Burger3", "pic", "500", false, true)]
+
+console.log (BArray)
 export default {
   name: 'HomeView',
   components: {
@@ -25,11 +40,10 @@ export default {
   },
   data: function () {
     return {
-      burgers: [ {name: "small burger", kCal: 250},
-                 {name: "standard burger", kCal: 450},
-                 {name: "large burger", kCal: 850}
-               ]
+      burgers: BArray
+      
     }
+    
   },
   methods: {
     getOrderNumber: function () {
