@@ -49,6 +49,13 @@
 
        </section>
        <section id="section2">
+        <div id="containing" >
+          <div id="map" v-on:click="setLocation" >
+            <div v-bind:style="{left: this.location.x + 'px',top: this.location.y + 'px'}">
+                T              
+            </div>
+          </div>
+        </div>
          <h2>Customer information</h2>
          <p>This is where you provid necessary information</p>
          <form>
@@ -62,7 +69,7 @@
            <input type="email" v-model="em" required="required" id="email" placeholder="E-mail address">
          </p>
 
-         <p>
+         <!-- <p>
            <label for="street">street</label> <br>
            <input type="text" v-model="sn" required="required" id="street" placeholder="Street name">
          </p>
@@ -70,7 +77,7 @@
          <p>
            <label for="house">House</label> <br>
            <input type="number" v-model="hn" required="required" id="house" placeholder="House number">
-         </p>
+         </p> -->
 
          <p>
            <label for="payment">Payment methods</label>
@@ -139,7 +146,16 @@ export default {
   },
   data: function () {
     return {
-      burgers: menu
+      burgers: menu,
+      orderedBurgers: {},
+      location: {
+        x: 0,
+        y: 0
+      },
+      name: '',
+      gender: '',
+      em: '',
+      pay: '',
       
     }
     
@@ -162,13 +178,30 @@ export default {
       console.log(
         this.name,
         this.em,
-        this.sn,
-        this.hn,
+        //this.sn,
+        //this.hn,
         this.pay,
-        this.gender
+        this.gender,
+        
       )
-    }
+    },
+
+    addToOrder: function (event) {
+      this.orderedBurgers[event.name] = event.amount;
+    },
+    
+    setLocation: function (event) {
+      var offset = {
+        x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top
+      }
+      this.location = {
+        x: event.clientX - 10 - offset.x,
+        y: event.clientY - 10 - offset.y
+      }
+    },
   }
+  
 }
 </script>
 
@@ -237,5 +270,28 @@ export default {
       grid-template-columns: 33% 33% 33%;
     }
 
-
+    #map {
+    width: 1920px;
+    height: 1078px;
+    background: url("../../public/img/polacks.jpg");
+    background-repeat: no-repeat;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    cursor: crosshair;
+  }
+  #map div {
+    position: absolute;
+    background: red;
+    color: white;
+    border-radius: 50px;
+    width:10px;
+    height:10px;
+    text-align: center;
+  }
+  #containing {
+    width:100%;
+    height:500px;
+    overflow:scroll;
+  }
 </style>
