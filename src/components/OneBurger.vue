@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="box a">
-        <p> Your nummber of orders is: {{amountOrdered}}</p>
+        <p> {{this.burger.name}} <span>is orderd: </span> {{amountOrdered}}</p>
             <h3>{{burger.name}}</h3>
             <!-- v-bind:src= -->
             <img v-bind:src="burger.url" style="width:15em; height:20em">
@@ -32,16 +32,19 @@
     methods: {
     addBurger: function () {
       this.amountOrdered += 1;
-      this.$emit('orderedBurger', { name:   this.burger.name,
-            amount: this.amountOrdered
+      this.$emit('orderedBurgers', { 
+                  name: this.burger.name,
+                  amount: this.amountOrdered
           }
       );
+
     },
     removeBurger: function () {
       if (this.amountOrdered > 0){
       this.amountOrdered -= 1;
-      this.$emit('orderedBurger', { name:   this.burger.name,
-            amount: this.amountOrdered
+      this.$emit('orderedBurgers', { 
+                  name: this.burger.name,
+                  amount: this.amountOrdered
           }
       );
         }

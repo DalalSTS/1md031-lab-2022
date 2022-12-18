@@ -15,8 +15,10 @@
          <p>This is where you execute burger selection</p>
          <div class="wrapper">
 
-          <Burger v-for="burger in burgers" v-bind:burger="burger"
-                v-bind:key="burger.name" />
+          <Burger v-for="burger in burgers" 
+                  v-bind:burger="burger"
+                  v-bind:key="burger.name" 
+                  v-on:orderedBurgers="addToOrder($event)"/>
           <!-- <div class="box a">
             <h3>The Fire Burger</h3>
             <img src="https://thumbs.dreamstime.com/b/burger-fire-black-background-site-171833764.jpg" style="width:15em; height:20em">
@@ -61,7 +63,7 @@
          <form>
           <p>
            <label for="fullName">Full name</label> <br>
-           <input type="text" v-model="name" required="required" id="fullName" placeholder="First- and Last name">
+           <input type="text" v-model="name" required="required" id="fullName" placeholder="First- and Last name" >
          </p>
 
          <p>
@@ -96,11 +98,11 @@
            <input type="radio" v-model="gender" value="female" id="female">
            <label for="female">Female</label> <br>
            <input type="radio" v-model="gender" value="donot" id="donot">
-           <label for="donot">Do not wish to provide</label> <br>
+           <label for="missed">Do not wish to provide</label> <br>
          </p>
         </form>
        </section>
-       <button type="submit" name="button" v-on:click="printForm">
+       <button type="submit" name="button" v-on:click="addOrder">
          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bright_green_checkbox-checked.svg/1024px-Bright_green_checkbox-checked.svg.png" style="width:1em; height:1em">
          Send info
        </button>
@@ -123,20 +125,20 @@ import menu from '../assets/menu.json'
 
 const socket = io();
 
-function MenuItem(Bname, url, kCal, glut, lact) {
-    this.name = Bname; 
-    this.url = url;
-    this.kCal = kCal;
-    this.gluten = glut;
-    this.lactose = lact;
-    return this;
-}
+// function MenuItem(Bname, url, kCal, glut, lact) {
+//     this.name = Bname; 
+//     this.url = url;
+//     this.kCal = kCal;
+//     this.gluten = glut;
+//     this.lactose = lact;
+//     return this;
+// }
 
-const Bur1 = new MenuItem("The Fire Burger", "https://thumbs.dreamstime.com/b/burger-fire-black-background-site-171833764.jpg", "750 kCal", "gluten", "lactose")
-const Bur2 = new MenuItem("Fried Turkey Burger", "https://i0.wp.com/www.awortheyread.com/wp-content/uploads/2020/12/Deep-Fried-Turkey-Burger-17-681x1024.jpg", "600 kCal", "gluten", "lactose")
-const Bur3 = new MenuItem("A Double cheese burger", "https://www.foodiecrush.com/wp-content/uploads/2017/06/Bacon-Double-Cheddar-Cheeseburger-Caramelized-Onions-foodiecrush.com-015a-683x1024-1-500x500.jpg", "1800 kCal", "gluten", "lactose")
+// const Bur1 = new MenuItem("The Fire Burger", "https://thumbs.dreamstime.com/b/burger-fire-black-background-site-171833764.jpg", "750 kCal", "gluten", "lactose")
+// const Bur2 = new MenuItem("Fried Turkey Burger", "https://i0.wp.com/www.awortheyread.com/wp-content/uploads/2020/12/Deep-Fried-Turkey-Burger-17-681x1024.jpg", "600 kCal", "gluten", "lactose")
+// const Bur3 = new MenuItem("A Double cheese burger", "https://www.foodiecrush.com/wp-content/uploads/2017/06/Bacon-Double-Cheddar-Cheeseburger-Caramelized-Onions-foodiecrush.com-015a-683x1024-1-500x500.jpg", "1800 kCal", "gluten", "lactose")
 
-let BArray = [ Bur1, Bur2, Bur3]
+//let BArray = [ Bur1, Bur2, Bur3]
 
 
 export default {
@@ -164,17 +166,13 @@ export default {
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
+    
+    addToOrder: function (event) {
+      console.log(event.name, event.amount);
+      this.orderedBurgers[event.name] = event.amount;
     },
-    printForm: function () {
+    
+    addOrder: function () {
       console.log(
         this.name,
         this.em,
@@ -183,13 +181,21 @@ export default {
         this.pay,
         this.gender,
         
+        
       )
+      socket.emit("addOrder", { orderId: this.getOrderNumber(),
+                                details: { x: this.location.x,
+                                           y: this.location.y },
+                                orderItems: this.orderedBurgers,
+                                form: {name: this.name,
+                                       em: this.em, 
+                                       gender: this.gender,
+                                       pay: this.pay}
+                              }
+                 );
     },
 
-    addToOrder: function (event) {
-      this.orderedBurgers[event.name] = event.amount;
-    },
-    
+
     setLocation: function (event) {
       var offset = {
         x: event.currentTarget.getBoundingClientRect().left,
@@ -250,7 +256,7 @@ export default {
     #imgHeader{
       width: 100%;
       height: 100%;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     #Headline{
@@ -285,8 +291,8 @@ export default {
     background: red;
     color: white;
     border-radius: 50px;
-    width:10px;
-    height:10px;
+    width:15px;
+    height:15px;
     text-align: center;
   }
   #containing {
