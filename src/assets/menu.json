@@ -3,24 +3,24 @@
     {
         "name": "The Fire Burger",
         "kCal": 750,
-        "lactose": "lactose",
-        "gluten": "gluten",
+        "lactose": true,
+        "gluten": true,
         "url": "https://thumbs.dreamstime.com/b/burger-fire-black-background-site-171833764.jpg"
       },
 
       {
         "name": "Fried Turkey Burger",
         "kCal": 600,
-        "lactose": "lactose",
-        "gluten": "gluten",
+        "lactose": true,
+        "gluten": false,
         "url": "https://i0.wp.com/www.awortheyread.com/wp-content/uploads/2020/12/Deep-Fried-Turkey-Burger-17-681x1024.jpg"
       },
 
       {
         "name": "A Double cheese burger",
         "kCal": 1800,
-        "lactose": "lactose",
-        "gluten": "gluten",
+        "lactose": false,
+        "gluten": true,
         "url": "https://www.foodiecrush.com/wp-content/uploads/2017/06/Bacon-Double-Cheddar-Cheeseburger-Caramelized-Onions-foodiecrush.com-015a-683x1024-1-500x500.jpg"
       }
   ]

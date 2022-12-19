@@ -7,8 +7,12 @@
             <img v-bind:src="burger.url" style="width:15em; height:20em">
             <ul>
               <li>{{burger.kCal}}</li>
-              <li>Contains <span class="certain">{{burger.lactose}}</span></li>
-              <li>Contains <span class="certain">{{burger.gluten}}</span></li>
+              <span v-if="burger.lactose == true">
+                <li>Contains <span class="certain">lactose</span></li>
+              </span>
+              <span v-if="burger.gluten == true">
+                <li>Contains <span class="certain">gluten</span></li>
+              </span>
             </ul>
 
             <button type="button" v-on:click="addBurger">+Add</button>
